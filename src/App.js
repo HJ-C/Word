@@ -3,7 +3,9 @@ import styles from './App.module.css'
 import Header from './component/header';
 import DayList from './component/DayList';
 import Day from './component/Day';
+import CreateWord from './component/CreateWord';
 import EmptyPage from './component/EmptyPage';
+import CreateDay from './component/CreateDay';
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 function App() {
@@ -17,6 +19,12 @@ function App() {
         </Route>
         <Route path='/day/:day'>  {/* :day를 통해 1이라는 변수를 추출 가능 */}
           <Day></Day>
+        </Route>
+        <Route path='/create_word'> 
+          <CreateWord></CreateWord>
+        </Route>
+        <Route path='/create_day'> 
+          <CreateDay></CreateDay>
         </Route>
         <Route>
           <EmptyPage></EmptyPage>
