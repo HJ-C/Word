@@ -1,9 +1,9 @@
 import './App.css';
 import styles from './App.module.css'
 import Header from './component/header';
-import DayList from './component/DayList';
-import Day from './component/Day';
-import CreateWord from './component/CreateWord';
+import DayList from './component/DayList.tsx';
+import Day from './component/Day.tsx';
+import CreateWord from './component/CreateWord.tsx';
 import EmptyPage from './component/EmptyPage';
 import CreateDay from './component/CreateDay';
 import {BrowserRouter, Route, Switch} from 'react-router-dom'

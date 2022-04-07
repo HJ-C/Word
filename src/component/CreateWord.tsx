@@ -1,25 +1,33 @@
-import useFetch from "../hooks/useFetch"
+import useFetch from "../hooks/useFetch.js"
 import {useState, useRef} from 'react'
 import { useHistory} from "react-router-dom"
+import {IDay} from './DayList'
 
 export default function CreateWord(){
 
-    const days = useFetch(`http://localhost:3001/days`)
+    const days : IDay[] = useFetch(`http://localhost:3001/days`)
    
     // Dom에 접근
-    const engRef = useRef(null)
-    const korRef = useRef(null)
-    const dayRef = useRef(null)
+    const engRef = useRef<HTMLInputElement>(null)
+    const korRef = useRef<HTMLInputElement>(null)
+    const dayRef = useRef<HTMLSelectElement>(null)
 
     const history = useHistory()
     const [isLoading, setIsLoading] = useState(false)
 
 //새로고침 없애기
-function onSubmit(e){
+function onSubmit(e: React.FormEvent){
     e.preventDefault()
 
-    if(!isLoading){
+    if(!isLoading    
+    && dayRef.current
+    && engRef.current
+    && korRef.current){
     setIsLoading(true)// 통신 중 버튼을 여러번 눌러도 반응 안하게 설정
+
+    const day = dayRef.current.value
+    const eng = engRef.current.value
+    const kor = korRef.current.value
 
     fetch(`http://localhost:3001/words/`, {
         method: "POST",
@@ -27,15 +35,15 @@ function onSubmit(e){
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            day : dayRef.current.value,
-            eng : engRef.current.value,
-            kor : korRef.current.value ,
+            day ,
+            eng ,
+            kor ,
             isDone : false
         }),
       }).then(res => {
         if (res.ok) {  
             alert('생성이 완료 되었습니다')
-            history.push(`/day/${dayRef.current.value}`) //페이지 변환
+            history.push(`/day/${day}`) //페이지 변환
             setIsLoading(false) //통신 중 버튼을 여러번 눌러도 반응안함
         }
       });
